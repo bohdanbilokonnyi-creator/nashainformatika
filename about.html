@@ -266,7 +266,21 @@ src="https://maps.google.com/maps?q=вулиця%20Миколи%20Оводова
 <p> 2025–2026 н.р.</p>
 </footer>
 
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+
+  const toggle = document.querySelector('.mobile-menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  toggle.addEventListener('click', function(){
+    navLinks.classList.toggle('active');
+  });
+
+});
+</script>
+  
 </body>
 </html>
+
 
 
