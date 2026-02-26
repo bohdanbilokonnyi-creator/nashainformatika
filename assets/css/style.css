@@ -1044,25 +1044,30 @@ iframe{
 @media (max-width: 768px) {
 
   .navbar{
-    width: 95%;
-    padding: 12px 14px;
-    top: 10px;
+    width: 94%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px;
   }
 
   .nav-inner{
     flex-direction: column;
-    gap: 12px;
+    align-items: center;
   }
 
   .nav-links{
-    flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;           
     justify-content: center;
     gap: 8px;
+    width: 100%;
   }
 
   .nav-links a{
-    padding: 8px 12px;
+    flex: 1 1 40%;              
+    text-align: center;
     font-size: 14px;
+    padding: 8px 6px;
   }
 
 }
