@@ -83,10 +83,12 @@ body{
 }
 
 .hero{
+  position: relative;
   padding: 160px 20px 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
 }
 .hero h1{
@@ -98,8 +100,10 @@ color:transparent;
 }
 
 .hero-logo{
+  position: relative;   
+  display: block;
+  margin: 0 auto 30px auto;
   width: 160px;
-  margin-bottom: 30px;
   animation: float 6s ease-in-out infinite;
 }
 
