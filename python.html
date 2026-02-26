@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BeeDigital | Python-тренажер</title>
+
+<link rel="stylesheet" href="assets/css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
+
+<script src="https://unpkg.com/monaco-editor@0.45.0/min/vs/loader.js"></script>
+
+<style>
+.python-box{
+  padding:40px;
+}
+
+#editor{
+  height:350px;
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:20px;
+}
+
+.run-btn{
+  padding:12px 28px;
+  border-radius:14px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  background:linear-gradient(135deg,#FFC107,#ff9800);
+  box-shadow:0 0 20px rgba(255,193,7,.5);
+  transition:.3s;
+}
+
+.run-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 30px rgba(255,193,7,.8);
+}
+
+#output{
+  margin-top:20px;
+  background:#111;
+  color:#00ff88;
+  padding:16px;
+  border-radius:14px;
+  min-height:140px;
+  font-family:monospace;
+  white-space:pre-wrap;
+}
+</style>
+
+</head>
+<body>
+
+<div class="bg-hex"></div>
+
+<header class="navbar">
+
+  <div class="nav-inner">
+
+    <nav class="nav-links">
+      <a href="index.html">Головна</a>
+      <a href="about.html">Про предмет</a>
+      <a href="npb.html">Нормативно-правова база</a>
+      <a href="secur.html">Цифрова безпека</a>
+      <a href="cyberbull.html">Кібербулінг</a>
+      <a href="plans.html">Конспекти</a>
+      <a href="progy.html">Навчальне ПЗ</a>
+      <a href="python.html">Тренажер "Python"</a>
+    </nav>
+
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo.png" alt="BeeDigital">
+    </a>
+
+  </div>
+
+</header>
+
+<section class="hero">
+
+  <img src="assets/images/logo.png" class="hero-logo">
+  
+  <h1>🐍 Python-тренажер BeeDigital</h1>
+  <p>
+    Тут кожен може стати творцем: створювати обчислення, ігри, міні-проєкти та власні цифрові рішення.
+  </p>
+  <p>
+    Спробуй нову ідею, зміни кілька рядків коду — і миттєво побач результат.
+  </p>
+  <p>
+    <b>Python відкриває світ можливостей — почни досліджувати його вже зараз!</b>
+  </p>
+
+</section>
+
+<section class="welcome">
+  <div class="glass python-box">
+
+    <div id="editor"></div>
+
+    <button class="run-btn" onclick="runCode()">▶ Запустити код</button>
+
+    <pre id="output"></pre>
+
+  </div>
+</section>
+
+<script>
+let editor;
+let pyodide;
+
+require.config({ paths: { vs: "https://unpkg.com/monaco-editor@0.45.0/min/vs" }});
+
+require(["vs/editor/editor.main"], () => {
+  editor = monaco.editor.create(document.getElementById("editor"), {
+    value: ``,
+    language: "python",
+    theme: "vs-dark",
+    automaticLayout: true
+  });
+});
+
+async function init() {
+  pyodide = await loadPyodide();
+
+  await pyodide.runPythonAsync(`
+import sys
+from io import StringIO
+sys.stdout = StringIO()
+  `);
+
+  pyodide.globals.set("browser_prompt", (msg) => {
+    return prompt(msg);
+  });
+
+  await pyodide.runPythonAsync(`
+import builtins
+
+def input(prompt=""):
+    return browser_prompt(prompt)
+
+builtins.input = input
+  `);
+}
+
+init();
+
+async function runCode() {
+  const output = document.getElementById("output");
+  output.textContent = "⏳ Виконання...";
+
+  try {
+    await pyodide.runPythonAsync(`
+import sys
+from io import StringIO
+sys.stdout = StringIO()
+    `);
+
+    await pyodide.runPythonAsync(editor.getValue());
+
+    const result = pyodide.runPython("sys.stdout.getvalue()");
+    output.textContent = result || "✔ Виконано без виводу";
+
+  } catch (err) {
+    output.textContent = err;
+  }
+}
+</script>
+
+<footer class="footer">
+
+<iframe
+src="https://maps.google.com/maps?q=вулиця%20Миколи%20Оводова%202%20Вінниця&t=&z=16&ie=UTF8&iwloc=&output=embed">
+</iframe>
+
+<p> © КЗ "Вінницький ліцей №3 ім. М. Коцюбинського"</p>  
+<p> 2025–2026 н.р.</p>
+</footer>
+
+</body>
+</html>
