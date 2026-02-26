@@ -16,24 +16,28 @@
 <div class="bg-hex"></div>
 
 <header class="navbar">
+
   <div class="nav-inner">
-
-    <nav class="nav-links">
-      <a href="index.html">Головна</a>
-      <a href="about.html">Про предмет</a>
-      <a href="npb.html">Нормативно-правова база</a>
-      <a href="secur.html">Цифрова безпека</a>
-      <a href="cyberbull.html">Кібербулінг</a>
-      <a href="plans.html">Конспекти</a>
-      <a href="progy.html">Навчальне ПЗ</a>
-      <a href="python.html">Тренажер "Python"</a>
-    </nav>
-
-    <a href="index.html" class="logo">
+  <a href="index.html" class="logo">
       <img src="assets/images/logo.png" alt="BeeDigital">
     </a>
+ <div class="mobile-menu-toggle">
+      <img src="/favicon.png" alt="menu">
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Головна</a>
+      <a href="pro-predmet.html">Про предмет</a>
+      <a href="normatyvno-pravova-baza.html">Нормативно-правова база</a>
+      <a href="tsyfrova-bezpeka.html">Цифрова безпека</a>
+      <a href="cyberbulling.html">Кібербулінг</a>
+      <a href="konspekty.html">Конспекти</a>
+      <a href="navchalne-pz.html">Навчальне ПЗ</a>
+      <a href="trenazher-python.html">Тренажер "Python"</a>
+    </nav>
 
+  
   </div>
+
 </header>
 
 <section class="hero">
@@ -202,12 +206,27 @@ style="margin:20px 0; padding:10px 15px; border-radius:15px; border:1px solid #c
 </section>
 
 <footer class="footer">
-  <iframe src="https://maps.google.com/maps?q=вулиця%20Миколи%20Оводова%202%20Вінниця&t=&z=16&ie=UTF8&iwloc=&output=embed"></iframe>
-  <p>© КЗ "Вінницький ліцей №3 ім. М. Коцюбинського"</p>
-  <p>2025–2026 н.р.</p>
+<div class="map-wrapper">
+<iframe
+src="https://maps.google.com/maps?q=вулиця%20Миколи%20Оводова%202%20Вінниця&t=&z=16&ie=UTF8&iwloc=&output=embed">
+</iframe>
+</div>
+<p> © КЗ "Вінницький ліцей №3 ім. М. Коцюбинського"</p>  
+<p> 2025–2026 н.р.</p>
 </footer>
 
-<script src="assets/js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
 
+  const toggle = document.querySelector('.mobile-menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  toggle.addEventListener('click', function(){
+    navLinks.classList.toggle('active');
+  });
+
+});
+</script>
+  <script src="tabs.js"></script>
 </body>
 </html>
